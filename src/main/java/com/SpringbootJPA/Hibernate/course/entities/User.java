@@ -1,6 +1,7 @@
 package com.SpringbootJPA.Hibernate.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,28 +16,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private String name;
 	private String email;
 	private String phone;
 	private String password;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
-	private List<Order> orders;
-
+	private List<Order> orders = new ArrayList<>();
+	
 	public User() {
 	}
 
-	public User(Long id, String nome, String email, String phone, String password) {
+	public User(Long id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
@@ -50,12 +50,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -81,12 +81,12 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+
 	public List<Order> getOrders() {
 		return orders;
 	}
-
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -111,7 +111,4 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
-
-
-
 }
